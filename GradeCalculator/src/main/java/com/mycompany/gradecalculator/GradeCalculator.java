@@ -128,7 +128,7 @@ public class GradeCalculator extends JFrame{
         catch(NumberFormatException ex){
             // Show error message for invalid input
             JOptionPane.showMessageDialog(this,
-            "Please enter valid numeric values:\n- Grades should not be less than 0 or greater than their percentage \n",
+            "Please enter valid numbers between 0 and \nthe maximum allowed points for each grading category.",
             "Input Error",
             JOptionPane.ERROR_MESSAGE);
         }

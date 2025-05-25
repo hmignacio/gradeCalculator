@@ -16,13 +16,13 @@ import java.awt.event.*;
 public class GradeCalculator extends JFrame{
     
     private JTextField ms1Txt, ms2Txt, taTxt;
-    private JButton submitButton;
-    private JLabel ms1Label, ms2Label, taLabel, totalGradeLabel;
+    private JButton submitButton, clearButton;
+    
     
     public GradeCalculator(){
     
         setTitle("Grade Calculator");
-        setSize(500, 500);
+        setSize(325, 275);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
 
@@ -36,38 +36,37 @@ public class GradeCalculator extends JFrame{
         addLabelAndField("Milestone 2 Grade 40% : ", ms2Txt = new JTextField(), row++, gbc);
         addLabelAndField("TA Grade 35% : ", taTxt = new JTextField(), row++, gbc);
         
-        // Submit button
+        // Buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        submitButton = new JButton("Calculate Grade");
+        clearButton = new JButton("Clear");
+
+        buttonPanel.add(clearButton);
+        buttonPanel.add(submitButton);
+
         gbc.gridx = 0;
         gbc.gridy = row++;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 2; 
+        gbc.insets = new Insets(5,5,5,5);
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.NONE;
-        submitButton = new JButton("Calculate Grade");
-        add(submitButton, gbc);
+        gbc.fill = GridBagConstraints.NONE; 
+        add(buttonPanel, gbc);
 
-        // Output labels
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER; // center the button
-        gbc.fill = GridBagConstraints.NONE;
-        ms1Label = new JLabel(" ");
-        ms2Label = new JLabel(" ");
-        taLabel = new JLabel(" ");
-        totalGradeLabel = new JLabel(" ");
-
-        gbc.gridy = row++; add(ms1Label, gbc);
-        gbc.gridy = row++; add(ms2Label, gbc);
-        gbc.gridy = row++; add(taLabel, gbc);
-        gbc.gridy = row++; add(totalGradeLabel, gbc);
         
 
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                calculateGrade();   
-            }
-        });
+         // Button actions
+        submitButton.addActionListener(e -> calculateGrade());
+        clearButton.addActionListener(e -> clearFields());
         
+        setLocationRelativeTo(null);
         setVisible(true);
         
+    }
+    
+    private void clearFields(){
+        ms1Txt.setText("");
+        ms2Txt.setText("");
+        taTxt.setText("");
     }
 
     
@@ -97,10 +96,23 @@ public class GradeCalculator extends JFrame{
             
             int totalGrade = taGradeInteger + ms1GradeInteger + ms2GradeInteger;
             
-            ms1Label.setText("Milestone 1 Grade: " + ms1Grade);
-            ms2Label.setText("Milestone 2 Grade: " + ms2Grade);
-            taLabel.setText("TA Grade: " + taGrade);
-            totalGradeLabel.setText("Total Grade: " + Integer.toString(totalGrade));
+            JPanel gradePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
+            gradePanel.setLayout(new BoxLayout(gradePanel, BoxLayout.Y_AXIS));
+
+            gradePanel.add(new JLabel("Milestone 1 Grade: " + ms1Grade +"%"));
+            gradePanel.add(new JLabel("Milestone 2 Grade: " + ms2Grade+"%"));
+            gradePanel.add(new JLabel("TA Grade: " + taGrade+"%"));
+            
+            
+            gradePanel.add(Box.createVerticalStrut(10)); 
+            gradePanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+            gradePanel.add(Box.createVerticalStrut(10)); 
+            
+            gradePanel.add(new JLabel("Total Grade: " + totalGrade+"%"));
+             gradePanel.add(Box.createVerticalStrut(10)); 
+
+            JOptionPane.showMessageDialog(this, gradePanel, "Grade Summary", JOptionPane.INFORMATION_MESSAGE);
+            clearFields();
             
             
         }
@@ -113,18 +125,22 @@ public class GradeCalculator extends JFrame{
     }
     
     
-    private void addLabelAndField(String labelText, JTextField field, int row, GridBagConstraints gbc) {
-        gbc.gridx = 0;
-        gbc.gridy = row;
-        gbc.gridwidth = 1;
-        gbc.weightx = 0;
-        add(new JLabel(labelText), gbc);
+     private void addLabelAndField(String labelText, JTextField field, int row, GridBagConstraints gbc) {
+    gbc.gridy = row;
+    gbc.gridwidth = 1;
 
-        gbc.gridx = 1;
-        gbc.weightx = 1;
-        field.setPreferredSize(new Dimension(250, 25));
-        add(field, gbc);
-    }
+    gbc.gridx = 0;
+    gbc.weightx = 0;
+    gbc.anchor = GridBagConstraints.EAST;
+    add(new JLabel(labelText), gbc);
+
+    
+    gbc.gridx = 1;
+    gbc.weightx = 1;
+    gbc.anchor = GridBagConstraints.WEST;
+    field.setPreferredSize(new Dimension(100, 25)); 
+    add(field, gbc);
+}
     
 
     public static void main(String[] args) {

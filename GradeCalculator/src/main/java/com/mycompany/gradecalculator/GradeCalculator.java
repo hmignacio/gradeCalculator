@@ -11,7 +11,6 @@ package com.mycompany.gradecalculator;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class GradeCalculator extends JFrame{
     

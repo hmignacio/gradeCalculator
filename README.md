@@ -31,8 +31,9 @@ The application ensures that user inputs are valid and provides clear, concise e
 
 1. Clone the repository or download the source code.
 2. Open the project in NetBeans.
-3. Build and run the project.
-4. Enter grades in the fields and click to calculate the total.
+3. Take note of the java version in the pom.xnl, replace it with the java version installed in your local
+4. Build and run the project.
+5. Enter grades in the fields and click to calculate the total.
 
 ## ✅ QA Test Cases
 

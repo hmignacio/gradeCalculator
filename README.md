@@ -37,7 +37,7 @@ The application ensures that user inputs are valid and provides clear, concise e
 ## ✅ QA Test Cases
 
 A full set of QA test cases is available for download:  
-👉 [Download Test Cases (PDF)](docs/gradeCalculatorQA.pdf)
+👉 [Download Test Cases (PDF)](GradeCalculator/src/docs/gradeCalculatorQA.pdf)
 
 A full set of QA test cases is included in the accompanying PDF document. It outlines:
 
